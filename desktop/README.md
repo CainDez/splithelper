@@ -6,7 +6,7 @@ Windows 10/11 x64 的 WPF 桌面预览版。主内核、规则库和直连 helpe
 
 ## 安装与首次设置
 
-从 [v0.2.4 发布页](https://github.com/CainDez/splithelper/releases/tag/v0.2.4) 下载 `SplitHelper-Setup-0.2.4-win-x64.exe`，默认安装到当前用户的 `%LOCALAPPDATA%\Programs\SplitHelper`。便携包 `SplitHelper-0.2.4-win-x64.zip` 需完整解压并放在固定目录。两个包都包含完整组件，可用发布页的 `checksums.sha256` 核对下载内容。
+当前提供源码，可按[构建和验证](#构建和验证)在本地生成桌面包。安装包默认安装到当前用户的 `%LOCALAPPDATA%\Programs\SplitHelper`，便携包需完整解压并放在固定目录。公开下载待随包规则数据的再分发授权核实后提供。
 
 1. 在官方 Mullvad 或 Windscribe 客户端完成登录、选择节点。账号始终由官方客户端管理。
 2. 打开“设置 → 连接向导”。Mullvad 点击“配置 Mullvad 分流排除”；Windscribe 按指引启用 **Exclusive / 排除模式**，通过“打开组件位置”将内置 mullvad-direct-helper.exe 加入排除列表，然后勾选确认。分流助手和主内核保留在 VPN 内。

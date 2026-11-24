@@ -4,9 +4,11 @@ Windows 桌面分流工具：国内流量经本地宽带，海外流量经官方
 
 **当前版本为 0.2.4（桌面预览版）**。修复启用分流后后台维护导致的周期性界面闪动。内置主内核、规则库和直连 helper，**无需 Clash Verge，无需另行下载 helper，Windscribe 无需代理网关或网关密码**。Windows 10/11 x64 自包含程序，无需另装 .NET。
 
-- [下载安装包、便携包及 SHA-256](https://github.com/CainDez/splithelper/releases/tag/v0.2.4)
+- [从源码构建桌面版](desktop/README.md#构建和验证)
 - [安装、升级与日常使用](desktop/README.md)
 - [0.2.4 更新说明](desktop/releases/v0.2.4.md) · [验证记录与边界](desktop/verification/QA-v0.2.4.md)
+
+当前提供源码。安装包和便携包待随包规则数据的再分发授权核实后发布。
 
 网站访问异常时，可在“设置 → [自定义规则](desktop/README.md#自定义规则)”输入域名或网址，选择国内直连、VPN 或拦截。支持子域名、启停和优先级排序。点击“保存并应用”即提交规则。
 
@@ -63,3 +65,9 @@ flowchart LR
 [桌面构建与验证](desktop/README.md#构建和验证) · [旧脚本版与 Clash 配置](docs/legacy-script-setup.md) · [隐私和迁移边界](PRIVACY.md)
 
 源码仓库不提交第三方二进制和本机运行数据。安装包携带经过 SHA-256 校验的固定版本组件、规则数据、许可证及对应源码归档。账号、旧网关凭据、私人规则和运行记录留在本机。
+
+## 许可证
+
+SplitHelper 自有代码采用 [MIT 许可证](LICENSE)，包括桌面应用、PowerShell 脚本和浏览器原型。该许可也适用于 `v0.2.4` 标签中的自有代码。
+
+第三方组件沿用各自的许可。.NET 运行时、MahApps 图标组件、Phosphor Icons 和 YamlDotNet 的许可在 [第三方声明目录](desktop/SplitHelper/licenses)。独立的 Mihomo 可执行程序采用 GPLv3，GeoSite 和 GeoIP 规则数据以各自的[来源和许可声明](desktop/SplitHelper/licenses/rule-data/NOTICE.md)为准。
