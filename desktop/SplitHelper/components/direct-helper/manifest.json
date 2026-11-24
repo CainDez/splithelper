@@ -1,0 +1,7 @@
+{
+  "version": "1.19.33",
+  "sha256": "926bfea2ce48a247d6a7ce4cf641980e416202d5e40fe4ee5c949089ace0e197",
+  "configSha256": "0d455347194c25b3cd5b17188df814539540bec1fbc93feec2e76277377f4011",
+  "archiveSha256": "7aaf636a4f2172dcd8ec34ac4f52797b059195e5afd6409508c963e545f8864d",
+  "upstream": "https://github.com/MetaCubeX/mihomo/tree/v1.19.33"
+}

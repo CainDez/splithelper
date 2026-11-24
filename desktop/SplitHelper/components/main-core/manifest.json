@@ -1,0 +1,11 @@
+{
+  "version": "1.19.33",
+  "sha256": "926bfea2ce48a247d6a7ce4cf641980e416202d5e40fe4ee5c949089ace0e197",
+  "archiveSha256": "7aaf636a4f2172dcd8ec34ac4f52797b059195e5afd6409508c963e545f8864d",
+  "upstream": "https://github.com/MetaCubeX/mihomo/tree/v1.19.33",
+  "geositeSha256": "6dc3c32192511451a8eb706e224b00197d748a2d0a05a7c6b750536098b5daf7",
+  "countrySha256": "c0c6ea5661a3167abb24bbbaf629605aa3856c425384cbf2897c5a0f41027663",
+  "geodataVersion": "2026-11-10 12:12",
+  "geodataCommit": "38711db8318645f994b3b0e2ab4332e87bbfb02c",
+  "geodataSource": "https://github.com/MetaCubeX/meta-rules-dat/tree/38711db8318645f994b3b0e2ab4332e87bbfb02c"
+}

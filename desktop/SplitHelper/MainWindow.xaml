@@ -1,0 +1,144 @@
+<Window x:Class="SplitHelper.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks" Title="分流助手" Width="1440" Height="960" MinWidth="960" MinHeight="680" WindowStartupLocation="CenterScreen" Style="{StaticResource {x:Type Window}}">
+  <Grid>
+    <Grid.RowDefinitions><RowDefinition Height="76"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+    <Border BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,0,1" Padding="30,0">
+      <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center"><icons:PackIconPhosphorIcons Kind="ShareNetwork" Width="30" Height="30" Foreground="{StaticResource AccentBrush}" Margin="0,0,14,0"/><TextBlock Text="分流助手" FontWeight="Bold" FontSize="26"/></StackPanel>
+        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+          <Button Content="概览" Tag="overview" Click="Navigate" Style="{StaticResource OverviewNav}" Margin="0,0,12,0"/>
+          <Button Content="设置" Tag="settings" Click="Navigate" Style="{StaticResource SettingsNav}" Margin="0,0,12,0"/>
+          <Button Content="诊断" Tag="diagnostics" Click="Navigate" Style="{StaticResource DiagnosticsNav}"/>
+        </StackPanel>
+        <Border Grid.Column="2" Background="{StaticResource PanelBrush}" CornerRadius="8" Padding="16,10" HorizontalAlignment="Right" VerticalAlignment="Center"><StackPanel Orientation="Horizontal"><icons:PackIconPhosphorIcons Kind="ShieldCheck" Width="21" Height="21" Margin="0,0,9,0"/><TextBlock Text="{Binding Provider}" FontSize="17"/></StackPanel></Border>
+      </Grid>
+    </Border>
+    <Border Grid.Row="1" Background="#483A1B" Padding="30,12" Visibility="{Binding IsSafeMode, Converter={StaticResource BooleanVisibility}}"><TextBlock Text="只读验证模式 · 系统设置和代理状态不会被修改" Foreground="#FFD17B" FontWeight="SemiBold"/></Border>
+    <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="34,28,34,30">
+      <Grid MaxWidth="1320" HorizontalAlignment="Stretch">
+        <StackPanel Visibility="{Binding Page, Converter={StaticResource EqualVisibility}, ConverterParameter=overview}">
+          <StackPanel Orientation="Horizontal" Margin="0,13,0,10"><icons:PackIconPhosphorIcons Kind="Pulse" Width="43" Height="43" Margin="0,0,20,0" Foreground="{Binding Tone, Converter={StaticResource ToneBrush}}"/><TextBlock Text="{Binding Headline}" FontWeight="Bold" FontSize="39"/></StackPanel>
+          <TextBlock Text="{Binding Subtitle}" FontSize="22" Foreground="{StaticResource MutedBrush}" Margin="0,0,0,25"/>
+          <WrapPanel Margin="0,0,0,24"><Button Content="{Binding PrimaryActionLabel}" Command="{Binding PrimaryCommand}" Style="{StaticResource PrimaryButton}" Background="{Binding Tone, Converter={StaticResource ToneBrush}}" BorderBrush="{Binding Tone, Converter={StaticResource ToneBrush}}" FontSize="18" MinWidth="235" Margin="0,0,16,10"/><Button Content="连接设置与修复" Tag="settings" Click="Navigate" FontSize="17" Margin="0,0,16,10"/><Button Content="重新检测" Command="{Binding RefreshCommand}" Margin="0,0,16,10"/><Button Content="停止分流" Command="{Binding StopCommand}" Margin="0,0,0,10"/></WrapPanel>
+          <Viewbox Stretch="Uniform" StretchDirection="DownOnly" HorizontalAlignment="Stretch" Margin="0,12,0,26">
+            <Canvas Width="1240" Height="280">
+              <Path Data="M 142,140 L 208,140 M 352,140 C 390,140 390,62 426,62 M 352,140 C 390,140 390,218 426,218 M 548,62 L 589,62 M 801,62 L 845,62 M 548,218 L 589,218 M 801,218 L 845,218" Stroke="#698994" StrokeThickness="2"/>
+              <Path Data="M 352,140 C 390,140 390,62 426,62 M 548,62 L 589,62 M 801,62 L 845,62" Stroke="{Binding DomesticTone, Converter={StaticResource ToneBrush}}" StrokeThickness="2.5"/>
+              <Path Data="M 352,140 C 390,140 390,218 426,218 M 548,218 L 589,218 M 801,218 L 845,218" Stroke="{Binding OverseasTone, Converter={StaticResource ToneBrush}}" StrokeThickness="2.5"/>
+              <Path Data="M 200,134 L 208,140 200,146 M 418,56 L 426,62 418,68 M 581,56 L 589,62 581,68 M 837,56 L 845,62 837,68 M 418,212 L 426,218 418,224 M 581,212 L 589,218 581,224 M 837,212 L 845,218 837,224" Fill="#A1BAC5"/>
+              <Border Canvas.Left="0" Canvas.Top="79" Width="142" Height="122" Style="{StaticResource RouteNode}"><StackPanel VerticalAlignment="Center"><icons:PackIconPhosphorIcons Kind="Desktop" Width="30" Height="30" HorizontalAlignment="Center" Margin="0,0,0,10"/><TextBlock Text="遵循系统代理&#x0a;的应用" TextAlignment="Center" FontSize="19"/></StackPanel></Border>
+              <Border Canvas.Left="208" Canvas.Top="79" Width="144" Height="122" Style="{StaticResource RouteNode}"><StackPanel VerticalAlignment="Center"><icons:PackIconPhosphorIcons Kind="Stack" Width="34" Height="34" HorizontalAlignment="Center" Margin="0,0,0,10"/><TextBlock Text="内置主内核" TextAlignment="Center" FontSize="20"/></StackPanel></Border>
+              <Border Canvas.Left="426" Canvas.Top="34" Width="122" Height="56" Style="{StaticResource RouteNode}" BorderBrush="{Binding DomesticTone, Converter={StaticResource ToneBrush}}"><StackPanel Orientation="Horizontal" HorizontalAlignment="Center"><icons:PackIconPhosphorIcons Kind="Desktop" Width="23" Height="23" Margin="0,0,10,0"/><TextBlock Text="国内" FontSize="20"/></StackPanel></Border>
+              <Border Canvas.Left="589" Canvas.Top="34" Width="212" Height="56" Style="{StaticResource RouteNode}" BorderBrush="{Binding DomesticTone, Converter={StaticResource ToneBrush}}"><StackPanel Orientation="Horizontal" HorizontalAlignment="Center"><icons:PackIconPhosphorIcons Kind="Rocket" Width="24" Height="24" Margin="0,0,10,0"/><TextBlock Text="内置直连组件" FontSize="19"/></StackPanel></Border>
+              <Border Canvas.Left="845" Canvas.Top="34" Width="158" Height="56" Style="{StaticResource RouteNode}" BorderBrush="{Binding DomesticTone, Converter={StaticResource ToneBrush}}"><StackPanel Orientation="Horizontal" HorizontalAlignment="Center"><icons:PackIconPhosphorIcons Kind="WifiHigh" Width="24" Height="24" Margin="0,0,10,0"/><TextBlock Text="本地宽带" FontSize="19"/></StackPanel></Border>
+              <TextBlock Canvas.Left="1025" Canvas.Top="32" Width="210" Height="60" Text="{Binding DomesticStatus}" Foreground="{Binding DomesticTone, Converter={StaticResource ToneBrush}}" FontSize="18" FontWeight="SemiBold"/>
+              <Border Canvas.Left="426" Canvas.Top="190" Width="122" Height="56" Style="{StaticResource RouteNode}" BorderBrush="{Binding OverseasTone, Converter={StaticResource ToneBrush}}"><StackPanel Orientation="Horizontal" HorizontalAlignment="Center"><icons:PackIconPhosphorIcons Kind="Globe" Width="23" Height="23" Margin="0,0,10,0"/><TextBlock Text="海外" FontSize="20"/></StackPanel></Border>
+              <Border Canvas.Left="589" Canvas.Top="190" Width="212" Height="56" Style="{StaticResource RouteNode}" BorderBrush="{Binding OverseasTone, Converter={StaticResource ToneBrush}}"><StackPanel Orientation="Horizontal" HorizontalAlignment="Center"><icons:PackIconPhosphorIcons Kind="ShieldCheck" Width="24" Height="24" Margin="0,0,10,0"/><TextBlock Text="{Binding Provider, StringFormat={}{0} 出口}" FontSize="18"/></StackPanel></Border>
+              <Border Canvas.Left="845" Canvas.Top="190" Width="158" Height="56" Style="{StaticResource RouteNode}" BorderBrush="{Binding OverseasTone, Converter={StaticResource ToneBrush}}"><StackPanel Orientation="Horizontal" HorizontalAlignment="Center"><icons:PackIconPhosphorIcons Kind="ShieldCheck" Width="24" Height="24" Margin="0,0,10,0"/><TextBlock Text="VPN" FontSize="19"/></StackPanel></Border>
+              <TextBlock Canvas.Left="1025" Canvas.Top="188" Width="210" Height="60" Text="{Binding OverseasStatus}" Foreground="{Binding OverseasTone, Converter={StaticResource ToneBrush}}" FontSize="18" FontWeight="SemiBold"/>
+            </Canvas>
+          </Viewbox>
+          <ItemsControl ItemsSource="{Binding Checks}" ItemTemplate="{StaticResource CheckTemplate}"/>
+        </StackPanel>
+        <StackPanel Visibility="{Binding Page, Converter={StaticResource EqualVisibility}, ConverterParameter=settings}">
+          <TextBlock Text="连接与偏好" Style="{StaticResource MutedText}" Margin="0,8,0,10"/>
+          <TextBlock Text="把分流设置好，之后交给助手。" FontWeight="Bold" FontSize="28" Margin="0,0,0,20"/>
+          <WrapPanel Margin="0,0,0,24"><Button Content="连接向导" Tag="0" Click="SelectSettingsTab" Style="{StaticResource ConnectionTab}" Margin="0,0,8,6"/><Button Content="自动启动" Tag="1" Click="SelectSettingsTab" Style="{StaticResource StartupTab}" Margin="0,0,8,6"/><Button Content="自定义规则" Tag="2" Click="SelectSettingsTab" Style="{StaticResource RulesTab}" Margin="0,0,0,6"/></WrapPanel>
+          <Grid Visibility="{Binding SettingsTab, Converter={StaticResource EqualVisibility}, ConverterParameter=0}">
+            <Grid.ColumnDefinitions><ColumnDefinition Width="184"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+            <StackPanel Margin="0,0,22,0"><Button Content="1   检查环境" Tag="0" Click="SelectStep" Style="{StaticResource Step0}"/><Button Content="2   VPN 设置" Tag="1" Click="SelectStep" Style="{StaticResource Step1}"/><Button Content="3   一键启用" Tag="2" Click="SelectStep" Style="{StaticResource Step2}"/><Button Content="4   查看结果" Tag="3" Click="SelectStep" Style="{StaticResource Step3}"/><TextBlock Text="账号登录在官方客户端完成。按向导设置后，再检测并启用分流。" Style="{StaticResource MutedText}" Margin="12,35,4,0"/></StackPanel>
+            <Border Grid.Column="1" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1,0,0,0" Padding="30,0,0,0">
+              <StackPanel>
+                <StackPanel Visibility="{Binding WizardStep, Converter={StaticResource EqualVisibility}, ConverterParameter=0}">
+                  <TextBlock Text="步骤 1 / 4" Style="{StaticResource MutedText}" Margin="0,0,0,10"/><TextBlock Text="所需组件，已随助手准备好。" FontSize="27" FontWeight="Bold" Margin="0,0,0,20"/>
+                  <Border Style="{StaticResource Card}" Margin="0,0,0,16"><StackPanel><TextBlock Text="内置主内核与规则库" Style="{StaticResource SectionTitle}"/><TextBlock Text="{Binding ClashDescription}" Style="{StaticResource MutedText}"/><TextBlock Text="由助手生成配置、启动和恢复。无需另行安装 Clash Verge 或配置系统服务。" Style="{StaticResource MutedText}" Margin="0,10,0,0"/></StackPanel></Border>
+                  <Border Style="{StaticResource Card}"><StackPanel><TextBlock Text="内置直连组件" Style="{StaticResource SectionTitle}"/><TextBlock Text="{Binding HelperVersion}"/><TextBlock Text="首次为它设置 VPN 排除项。组件路径固定，由助手定位，无需单独下载。" Style="{StaticResource MutedText}" Margin="0,8,0,0"/><Button Content="定位内置组件" Command="{Binding OpenHelperLocationCommand}" HorizontalAlignment="Left" Margin="0,14,0,0"/></StackPanel></Border>
+                  <Button Content="下一步：选择 VPN" Tag="1" Click="SelectStep" Style="{StaticResource PrimaryButton}" HorizontalAlignment="Right" Margin="0,24,0,0"/>
+                </StackPanel>
+                <StackPanel Visibility="{Binding WizardStep, Converter={StaticResource EqualVisibility}, ConverterParameter=1}">
+                  <TextBlock Text="步骤 2 / 4" Style="{StaticResource MutedText}" Margin="0,0,0,10"/><TextBlock Text="首次设置，只需准备好官方 VPN。" FontSize="27" FontWeight="Bold" Margin="0,0,0,20"/>
+                  <StackPanel Orientation="Horizontal" Margin="0,0,0,24"><Button Content="Mullvad" Tag="Mullvad" Click="SelectProvider" Style="{StaticResource MullvadChoice}" MinWidth="145" Margin="0,0,12,0"/><Button Content="Windscribe" Tag="Windscribe" Click="SelectProvider" Style="{StaticResource WindscribeChoice}" MinWidth="165"/></StackPanel>
+                  <StackPanel Visibility="{Binding Provider, Converter={StaticResource EqualVisibility}, ConverterParameter=Windscribe}">
+                    <Border Style="{StaticResource Card}"><StackPanel>
+                      <TextBlock Text="1   在 Windscribe 中登录并选择常用节点" Style="{StaticResource SectionTitle}"/>
+                      <TextBlock Text="保留官方客户端选择的节点和协议。助手自动识别 IKEv2 / WireGuard，启用期间自动重连。" Style="{StaticResource MutedText}" Margin="0,0,0,20"/>
+                      <TextBlock Text="2   将内置直连组件加入排除列表" Style="{StaticResource SectionTitle}"/>
+                      <TextBlock Text="在 Split Tunneling 中选择 Exclusive / 排除模式，只添加下面定位到的 mullvad-direct-helper.exe。主内核与分流助手保留在 VPN 内。" Style="{StaticResource MutedText}" Margin="0,0,0,18"/>
+                      <WrapPanel><Button Content="打开 Windscribe" Command="{Binding OpenProviderCommand}" Margin="0,0,12,12"/><Button Content="定位直连组件" Command="{Binding OpenHelperLocationCommand}" Margin="0,0,0,12"/></WrapPanel>
+                      <CheckBox Content="已将内置直连组件加入 Windscribe 排除列表" IsChecked="{Binding WindscribeConfirmed}"/>
+                      <TextBlock Text="无需开启 Proxy Gateway，也无需填写网关地址、端口或密码。" Foreground="{StaticResource AccentBrush}" Margin="0,14,0,0"/>
+                    </StackPanel></Border>
+                  </StackPanel>
+                  <StackPanel Visibility="{Binding Provider, Converter={StaticResource EqualVisibility}, ConverterParameter=Mullvad}">
+                    <Border Style="{StaticResource Card}"><StackPanel><TextBlock Text="登录后，排除项交给助手配置" Style="{StaticResource SectionTitle}"/><TextBlock Text="启用时自动为内置直连组件配置 Mullvad 排除项，保留已有排除列表，并使用官方固定 SOCKS 出口。" Style="{StaticResource MutedText}"/><CheckBox Content="允许本地网络访问" IsChecked="{Binding AllowLan}" Margin="0,14,0,0"/><Button Content="打开 Mullvad 登录" Command="{Binding OpenProviderCommand}" HorizontalAlignment="Left" Margin="0,14,0,0"/></StackPanel></Border>
+                  </StackPanel>
+                  <Button Content="下一步：一键启用" Tag="2" Click="SelectStep" Style="{StaticResource PrimaryButton}" HorizontalAlignment="Right" Margin="0,24,0,0"/>
+                </StackPanel>
+                <StackPanel Visibility="{Binding WizardStep, Converter={StaticResource EqualVisibility}, ConverterParameter=2}">
+                  <TextBlock Text="步骤 3 / 4" Style="{StaticResource MutedText}" Margin="0,0,0,10"/><TextBlock Text="准备配置并连接，一次完成。" FontSize="27" FontWeight="Bold" Margin="0,0,0,20"/>
+                  <Border Style="{StaticResource Card}"><StackPanel>
+                    <TextBlock Text="助手会自动完成" Style="{StaticResource SectionTitle}"/>
+                    <TextBlock Text="连接官方 VPN → 准备内置规则 → 启动主内核与 helper → 检查两个出口 → 接管默认及 VPN 连接代理" Style="{StaticResource MutedText}"/>
+                    <TextBlock Text="已有助手配置中的生效规则会迁移并保留。关闭助手时还原接管前的代理；启用期间 VPN 断开时，海外请求保持经 VPN，重连后自动刷新内核。" Style="{StaticResource MutedText}" Margin="0,14,0,22"/>
+                    <Button Content="准备并启用分流" Command="{Binding ImportCommand}" Style="{StaticResource PrimaryButton}" HorizontalAlignment="Left"/>
+                  </StackPanel></Border>
+                  <Expander Header="可选：查看或导出配置" Margin="0,18,0,0"><StackPanel Margin="18,12"><TextBlock Text="{Binding MixedPort, StringFormat=助手本地代理端口：{0}}" Style="{StaticResource MutedText}"/><TextBlock Text="正常使用无需导出或手动导入 Clash。导出仅用于检查或其他兼容客户端。" Style="{StaticResource MutedText}" Margin="0,8,0,12"/><Button Content="导出 YAML 配置" Command="{Binding GenerateCommand}" HorizontalAlignment="Left"/></StackPanel></Expander>
+                </StackPanel>
+                <StackPanel Visibility="{Binding WizardStep, Converter={StaticResource EqualVisibility}, ConverterParameter=3}">
+                  <TextBlock Text="步骤 4 / 4" Style="{StaticResource MutedText}" Margin="0,0,0,10"/><TextBlock Text="查看实际分流结果。" FontSize="27" FontWeight="Bold" Margin="0,0,0,20"/><TextBlock Text="{Binding Headline}" Foreground="{Binding Tone, Converter={StaticResource ToneBrush}}" FontSize="22" Margin="0,0,0,10"/><TextBlock Text="{Binding Subtitle}" Style="{StaticResource MutedText}" Margin="0,0,0,20"/><WrapPanel><Button Content="重新检测" Command="{Binding RefreshCommand}" Margin="0,0,12,10"/><Button Content="{Binding PrimaryActionLabel}" Command="{Binding PrimaryCommand}" Style="{StaticResource PrimaryButton}" Margin="0,0,12,10"/><Button Content="保存设置" Command="{Binding SaveCommand}" Margin="0,0,0,10"/></WrapPanel><ItemsControl ItemsSource="{Binding Checks}" ItemTemplate="{StaticResource CheckTemplate}" Margin="0,10,0,0"/>
+                </StackPanel>
+              </StackPanel>
+            </Border>
+          </Grid>
+          <StackPanel Visibility="{Binding SettingsTab, Converter={StaticResource EqualVisibility}, ConverterParameter=1}" MaxWidth="920" HorizontalAlignment="Stretch">
+            <Border Style="{StaticResource Card}"><StackPanel><TextBlock Text="自动启动与窗口行为" Style="{StaticResource SectionTitle}"/><CheckBox Content="登录 Windows 后启动分流助手" IsChecked="{Binding AutoStart}"/><CheckBox Content="启动助手后自动检测并启用分流" IsChecked="{Binding AutoEnable}"/><CheckBox Content="关闭窗口时保留在系统托盘" IsChecked="{Binding CloseToTray}"/><TextBlock Text="启动后自动连接官方 VPN、准备内置组件并启用分流。启用期间自动恢复 Windscribe 连接；退出时还原代理。" Style="{StaticResource MutedText}" Margin="0,12,0,15"/><TextBlock Text="{Binding StartupStatus}" Foreground="{StaticResource AccentBrush}"/><WrapPanel Margin="0,24,0,0"><Button Content="保存偏好" Command="{Binding SaveCommand}" Style="{StaticResource PrimaryButton}" Margin="0,0,12,0"/><Button Content="打开 Windows 启动设置" Command="{Binding OpenStartupCommand}"/></WrapPanel></StackPanel></Border>
+          </StackPanel>
+          <StackPanel Visibility="{Binding SettingsTab, Converter={StaticResource EqualVisibility}, ConverterParameter=2}">
+            <StackPanel.Style><Style TargetType="StackPanel"><Style.Triggers><DataTrigger Binding="{Binding IsBusy}" Value="True"><Setter Property="IsEnabled" Value="False"/></DataTrigger></Style.Triggers></Style></StackPanel.Style>
+            <TextBlock Text="{Binding CustomRulePageTitle}" FontSize="29" FontWeight="Bold" Margin="0,0,0,8"/>
+            <Border Background="#173642" BorderBrush="#52727C" BorderThickness="1" CornerRadius="8" Padding="14" Margin="0,0,0,16" Visibility="{Binding IsSafeMode, Converter={StaticResource BooleanVisibility}}"><TextBlock Text="只读验证模式下无法添加、编辑或应用自定义规则。" Foreground="#FFD17B"/></Border>
+            <StackPanel>
+              <StackPanel.Style><Style TargetType="StackPanel"><Style.Triggers><DataTrigger Binding="{Binding IsEditingCustomRule}" Value="True"><Setter Property="Visibility" Value="Collapsed"/></DataTrigger></Style.Triggers></Style></StackPanel.Style>
+              <TextBlock Text="给网站指定连接出口。自定义规则优先，按列表从上到下匹配。" Style="{StaticResource MutedText}" Margin="0,0,0,14"/>
+              <Grid Margin="0,0,0,12"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="{Binding CustomRuleSummary}" VerticalAlignment="Center" Foreground="{StaticResource AccentBrush}" FontWeight="SemiBold"/><Button Grid.Column="1" Content="添加规则" Command="{Binding AddCustomRuleCommand}" Click="FocusRuleInput" Style="{StaticResource PrimaryButton}"/></Grid>
+            <Border Style="{StaticResource Card}" Padding="0" Margin="0,0,0,12">
+              <Grid>
+                <ListBox ItemsSource="{Binding CustomRules}" SelectedItem="{Binding SelectedCustomRule}" MinHeight="100" MaxHeight="340" Background="{StaticResource PanelBrush}" Foreground="{StaticResource TextBrush}" BorderBrush="{StaticResource BorderBrush}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalContentAlignment="Stretch" AutomationProperties.Name="自定义规则列表">
+              <ListBox.ItemContainerStyle><Style TargetType="ListBoxItem"><Setter Property="HorizontalContentAlignment" Value="Stretch"/><Setter Property="Padding" Value="12,12"/><Setter Property="Foreground" Value="{StaticResource TextBrush}"/><Setter Property="Template"><Setter.Value><ControlTemplate TargetType="ListBoxItem"><Border x:Name="Row" Background="Transparent" Padding="{TemplateBinding Padding}" BorderThickness="0,0,0,1" BorderBrush="{StaticResource BorderBrush}"><ContentPresenter/></Border><ControlTemplate.Triggers><Trigger Property="IsSelected" Value="True"><Setter TargetName="Row" Property="Background" Value="#28515E"/></Trigger><Trigger Property="IsKeyboardFocusWithin" Value="True"><Setter TargetName="Row" Property="BorderBrush" Value="{StaticResource AccentBrush}"/></Trigger></ControlTemplate.Triggers></ControlTemplate></Setter.Value></Setter></Style></ListBox.ItemContainerStyle>
+                  <ListBox.ItemTemplate><DataTemplate><Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="140"/><ColumnDefinition Width="100"/><ColumnDefinition Width="55"/></Grid.ColumnDefinitions><TextBlock Text="{Binding Domain}" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" ToolTip="{Binding Domain}" Margin="0,0,12,0"/><TextBlock Grid.Column="1" Text="{Binding MatchLabel}" Foreground="{StaticResource MutedBrush}"/><TextBlock Grid.Column="2" Text="{Binding TargetLabel}"/><TextBlock Grid.Column="3" Text="{Binding StatusLabel}" Foreground="{StaticResource MutedBrush}"/></Grid></DataTemplate></ListBox.ItemTemplate>
+                </ListBox>
+                <TextBlock Text="还没有自定义规则" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MutedBrush}" IsHitTestVisible="False" Visibility="{Binding CustomRules.Count, Converter={StaticResource EqualVisibility}, ConverterParameter=0}"/>
+              </Grid>
+            </Border>
+            <WrapPanel Margin="0,0,0,12">
+              <WrapPanel.Style><Style TargetType="WrapPanel"><Style.Triggers><DataTrigger Binding="{Binding CustomRules.Count}" Value="0"><Setter Property="Visibility" Value="Collapsed"/></DataTrigger></Style.Triggers></Style></WrapPanel.Style>
+              <Button Content="编辑" Command="{Binding EditCustomRuleCommand}" Click="FocusRuleInput" Margin="0,0,8,6"/><Button Content="上移" Command="{Binding MoveCustomRuleUpCommand}" Margin="0,0,8,6"/><Button Content="下移" Command="{Binding MoveCustomRuleDownCommand}" Margin="0,0,8,6"/><Button Content="{Binding RuleToggleAction}" Command="{Binding ToggleCustomRuleCommand}" Margin="0,0,8,6"/><Button Content="删除" Command="{Binding RemoveCustomRuleCommand}" Margin="0,0,0,6"/>
+            </WrapPanel>
+            </StackPanel>
+            <Border Style="{StaticResource Card}" Visibility="{Binding IsEditingCustomRule, Converter={StaticResource BooleanVisibility}}" Margin="0,6,0,12">
+              <StackPanel>
+                <StackPanel.InputBindings><KeyBinding Key="Escape" Command="{Binding CancelCustomRuleEditCommand}"/></StackPanel.InputBindings>
+                <Label Content="网站域名或完整网址" Target="{Binding ElementName=RuleDomainInput}" Foreground="{StaticResource TextBrush}" Padding="0,0,0,8"/>
+                <TextBox x:Name="RuleDomainInput" Text="{Binding RuleDomain, UpdateSourceTrigger=PropertyChanged}" ToolTip="例如 example.com，也可粘贴 https://example.com/page，保存时只保留域名。" AutomationProperties.Name="网站域名或完整网址"/>
+                <CheckBox Content="包含子域名" IsChecked="{Binding RuleIncludeSubdomains}" Margin="0,12,0,12"/>
+                <TextBlock Text="连接方式" Style="{StaticResource MutedText}" Margin="0,0,0,8"/><WrapPanel Margin="0,0,0,10"><Button Content="国内直连" Tag="ChinaDirect" Click="SelectRuleTarget" Style="{StaticResource RuleDomesticChoice}" Margin="0,0,8,6"/><Button Content="VPN" Tag="VPN" Click="SelectRuleTarget" Style="{StaticResource RuleVpnChoice}" MinWidth="100" Margin="0,0,8,6"/><Button Content="拦截" Tag="REJECT" Click="SelectRuleTarget" Style="{StaticResource RuleRejectChoice}" MinWidth="100" Margin="0,0,0,6"/></WrapPanel>
+                <WrapPanel><Button Content="保存并应用" Command="{Binding SaveCustomRulesCommand}" Style="{StaticResource PrimaryButton}" IsDefault="True" Margin="0,0,10,6"/><Button Content="取消" Command="{Binding CancelCustomRuleEditCommand}" Margin="0,0,0,6"/></WrapPanel>
+              </StackPanel>
+            </Border>
+            <Border Background="#173642" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" CornerRadius="8" Padding="10">
+              <Border.Style><Style TargetType="Border"><Style.Triggers><DataTrigger Binding="{Binding Notice}" Value=""><Setter Property="Visibility" Value="Collapsed"/></DataTrigger></Style.Triggers></Style></Border.Style>
+              <TextBlock Text="{Binding Notice}" Foreground="{StaticResource AccentBrush}" TextWrapping="Wrap"/>
+            </Border>
+          </StackPanel>
+        </StackPanel>
+        <StackPanel Visibility="{Binding Page, Converter={StaticResource EqualVisibility}, ConverterParameter=diagnostics}">
+          <TextBlock Text="诊断与维护" Style="{StaticResource MutedText}" Margin="0,8,0,10"/><TextBlock Text="查看真实检测结果，定位连接问题。" FontSize="29" FontWeight="Bold" Margin="0,0,0,24"/>
+          <WrapPanel><Button Content="重新检测" Command="{Binding RefreshCommand}" Style="{StaticResource PrimaryButton}" Margin="0,0,12,10"/><Button Content="导出脱敏诊断" Command="{Binding ExportDiagnosticsCommand}" Margin="0,0,12,10"/><Button Content="打开 Windows 代理设置" Command="{Binding OpenProxySettingsCommand}" Margin="0,0,12,10"/><Button Content="打开本机数据目录" Command="{Binding OpenDataCommand}" Margin="0,0,0,10"/></WrapPanel>
+          <ItemsControl ItemsSource="{Binding Checks}" ItemTemplate="{StaticResource CheckTemplate}" Margin="0,12,0,24"/>
+          <Border Style="{StaticResource Card}"><StackPanel><TextBlock Text="旧版组件迁移" Style="{StaticResource SectionTitle}"/><TextBlock Text="如果曾使用脚本版或旧版分流组件，可运行迁移检查，清理已识别的旧版配置。" Style="{StaticResource MutedText}" Margin="0,0,0,16"/><Button Content="检查并迁移旧版组件" Command="{Binding MigrateCommand}" HorizontalAlignment="Left"/></StackPanel></Border>
+          <Expander Header="高级信息"><StackPanel Margin="24,12,0,0"><TextBlock Text="内置组件版本" Style="{StaticResource MutedText}"/><TextBlock Text="{Binding HelperVersion}" Margin="0,3,0,14"/><TextBlock Text="内置组件位置（只读）" Style="{StaticResource MutedText}"/><TextBox Text="{Binding HelperLocation, Mode=OneWay}" IsReadOnly="True" TextWrapping="Wrap" Margin="0,6,0,14"/><Button Content="在资源管理器中定位" Command="{Binding OpenHelperLocationCommand}" HorizontalAlignment="Left"/></StackPanel></Expander>
+        </StackPanel>
+      </Grid>
+    </ScrollViewer>
+    <Border Grid.Row="3" BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,1,0,0" Padding="30,10"><Grid><Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="系统代理模式 · 仅接管遵循系统代理的应用" Foreground="{StaticResource MutedBrush}" FontSize="12"/><TextBlock Grid.Column="1" Text="{Binding Notice}" Foreground="{StaticResource AccentBrush}" FontSize="12" Margin="22,0" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" ToolTip="{Binding Notice}"/><StackPanel Grid.Column="2" Orientation="Horizontal"><Button Content="取消操作" Command="{Binding CancelCommand}" Visibility="{Binding IsBusy, Converter={StaticResource BooleanVisibility}}" Padding="10,4" MinHeight="28" FontSize="12" Margin="0,0,14,0"/><TextBlock Text="{Binding AppVersion, StringFormat=版本 {0}}" Foreground="{StaticResource MutedBrush}" FontSize="12"/></StackPanel></Grid></Border>
+  </Grid>
+</Window>

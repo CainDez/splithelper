@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <AssemblyName>SplitHelper</AssemblyName>
+    <RootNamespace>SplitHelper</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon Condition="Exists('Assets\app.ico')">Assets\app.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="SplitHelper.Tests" />
+    <PackageReference Include="MahApps.Metro.IconPacks.PhosphorIcons" Version="6.2.1" />
+    <PackageReference Include="YamlDotNet" Version="18.1.0" />
+    <PackageReference Include="System.ServiceProcess.ServiceController" Version="10.0.14" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\providers\mullvad\Clash-Mullvad.yaml" LogicalName="Templates.Mullvad.yaml" />
+    <EmbeddedResource Include="..\..\providers\mullvad\Profile-DNS.js" LogicalName="Templates.Mullvad.js" />
+    <EmbeddedResource Include="..\..\providers\windscribe\Clash-Windscribe.example.yaml" LogicalName="Templates.Windscribe.yaml" />
+    <EmbeddedResource Include="..\..\providers\windscribe\Profile-DNS.js" LogicalName="Templates.Windscribe.js" />
+    <Content Include="..\..\direct.yaml" Link="components\direct-helper\direct.yaml" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
+    <Content Include="components\**\*" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
+    <Content Include="licenses\**\*" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
+  </ItemGroup>
+</Project>

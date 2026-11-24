@@ -1,0 +1,67 @@
+[
+  {
+    "file": "MetaCubeX-GPL-3.0.txt",
+    "source": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/4178770badecb1b349fbcd62c737e0d7a2079729/LICENSE",
+    "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+  },
+  {
+    "file": "MetaCubeX-README.md",
+    "source": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/4178770badecb1b349fbcd62c737e0d7a2079729/README.md",
+    "sha256": "f8331ea1270bab8df1be58c6bd36064eacb80b4c98d1a243266617d5b544dd4a"
+  },
+  {
+    "file": "Loyalsoldier-GeoIP-CC-BY-SA-4.0.txt",
+    "source": "https://raw.githubusercontent.com/Loyalsoldier/geoip/master/LICENSE",
+    "sha256": "5e436ff8ffbb77d8607220e9bce20c8915d860010feeb6c1ebef5a85688e9b39"
+  },
+  {
+    "file": "Loyalsoldier-GeoIP-GPL-3.0.txt",
+    "source": "https://raw.githubusercontent.com/Loyalsoldier/geoip/master/LICENSE-GPL",
+    "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+  },
+  {
+    "file": "Loyalsoldier-GeoIP-README.md",
+    "source": "https://raw.githubusercontent.com/Loyalsoldier/geoip/master/README.md",
+    "sha256": "371e25231cbae0a425024c01145c2c255d4ed4f125b937d7ce958e234c0b24bb"
+  },
+  {
+    "file": "China-Operator-IP-MIT.txt",
+    "source": "https://raw.githubusercontent.com/gaoyifan/china-operator-ip/master/LICENSE",
+    "sha256": "8f4d03a581484143945a9fac471c3b669d5aada68361fd1f25886c3ddbdd786a"
+  },
+  {
+    "file": "Domain-List-Community-MIT.txt",
+    "source": "https://raw.githubusercontent.com/v2fly/domain-list-community/master/LICENSE",
+    "sha256": "b9d84a22870d3f21c91a4c6e410c9cc51d00902f5233ad0c84011479244bf7d2"
+  },
+  {
+    "file": "Domain-List-Custom-MIT.txt",
+    "source": "https://raw.githubusercontent.com/Loyalsoldier/domain-list-custom/master/LICENSE",
+    "sha256": "35f18e0331a1ecd1835400c50e3b367c2ce09f6c13d91c4a0f3cb11f71d3bbc3"
+  },
+  {
+    "file": "IOS-Rule-Script-GPL-2.0.txt",
+    "source": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/LICENSE",
+    "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+  },
+  {
+    "file": "Dnsmasq-China-WTFPL-2.0.txt",
+    "source": "https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/LICENSE",
+    "sha256": "f9e00539c44942d94e3c6d20f0c90e63e810ea181b10f16a252c93e4ea5cefd7"
+  },
+  {
+    "file": "Gfwlist-LGPL-2.1.txt",
+    "source": "https://raw.githubusercontent.com/gfwlist/gfwlist/master/COPYING.txt",
+    "sha256": "dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551"
+  },
+  {
+    "file": "WindowsSpyBlocker-MIT.txt",
+    "source": "https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/LICENSE",
+    "sha256": "2f39b073aeaa8761f239f5b598d8b08acb3188153b2a8c7aa8b10f03a4d74bc3"
+  },
+  {
+    "file": "TrackersListCollection-GPL-3.0.txt",
+    "source": "https://raw.githubusercontent.com/XIU2/TrackersListCollection/master/LICENSE",
+    "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+  }
+]

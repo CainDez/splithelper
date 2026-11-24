@@ -1,0 +1,13 @@
+* text=auto
+*.ps1 text eol=crlf
+*.cmd text eol=crlf
+*.yaml text eol=lf
+*.js text eol=lf
+*.cjs text eol=lf
+*.md text eol=lf
+# Prepare-Helper downloads this license with upstream LF line endings.
+desktop/SplitHelper/licenses/Mihomo-GPL-3.0.txt text eol=lf
+# Preserve downloaded notices byte-for-byte for the SHA-256 values in sources.json.
+desktop/SplitHelper/licenses/rule-data/** -text whitespace=cr-at-eol
+# This pinned upstream README includes a final blank line.
+desktop/SplitHelper/licenses/rule-data/MetaCubeX-README.md whitespace=cr-at-eol,-blank-at-eof

@@ -1,0 +1,17 @@
+mixed-port: 18997
+mode: rule
+log-level: info
+ipv6: false
+allow-lan: false
+bind-address: 127.0.0.1
+tun:
+  enable: false
+dns:
+  enable: true
+  ipv6: false
+  enhanced-mode: redir-host
+  nameserver:
+  - 223.5.5.5
+  - 119.29.29.29
+rules:
+- MATCH,DIRECT
